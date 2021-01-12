@@ -5,6 +5,7 @@ import wikipedia
 import smtplib
 import webbrowser as wb
 import psutil
+import pyjokes
 
 engine = pyttsx3.init()
 
@@ -24,7 +25,7 @@ def time_():
     min = datetime.datetime.now().minute
     seg = datetime.datetime.now().second
 
-    speak("The current time is" + str(hour)+ str(min) +ampm)
+    speak("The current time is" + str(hour)+" "+str(min) +ampm)
 
 def date_():
     year = datetime.datetime.now().year
@@ -78,6 +79,9 @@ def cpu():
     speak('CPU is at'+usage)
     battery = psutil.sensors_battery()
     speak('Batery is at: '+str(battery.percent))
+
+def joke():
+    speak(pyjokes.get_joke())
 
 if __name__ == '__main__':
     wichme()
@@ -141,3 +145,10 @@ if __name__ == '__main__':
 
         elif 'cpu' in query:
             cpu()
+
+        elif 'joke' in query:
+            joke()
+
+        elif 'go offline' in query:
+            speak('Going off line sir!')
+            quit()
