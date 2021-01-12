@@ -6,6 +6,7 @@ import smtplib
 import webbrowser as wb
 import psutil
 import pyjokes
+import os
 
 engine = pyttsx3.init()
 
@@ -125,7 +126,10 @@ if __name__ == '__main__':
 
         elif 'search in chrome' in query:
             speak("What should I search for?")
-            chromepath = "/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome %s"
+            # For mac
+            # chromepath = "/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome %s"
+            # For ubuntu
+            chromepath = '/usr/share/applications/google-chrome.desktop'
 
             search = TakeCommand().lower()
             wb.get(chromepath).open_new_tab(search+'.com')
@@ -152,3 +156,9 @@ if __name__ == '__main__':
         elif 'go offline' in query:
             speak('Going off line sir!')
             quit()
+
+        elif 'open calc' in query:
+            speak('Opening Calculator')
+            calcPath = 'gnome-calculator'
+            os.environ
+            os.startfile(calcPath)
