@@ -7,6 +7,7 @@ import webbrowser as wb
 import psutil
 import pyjokes
 import os
+import pyautogui
 
 engine = pyttsx3.init()
 
@@ -83,6 +84,9 @@ def cpu():
 
 def joke():
     speak(pyjokes.get_joke())
+def screenshot():
+    img = pyautogui.screenshot()
+    img.save('img/screen.png')
 
 if __name__ == '__main__':
     wichme()
@@ -161,4 +165,32 @@ if __name__ == '__main__':
             speak('Opening Calculator')
             calcPath = 'gnome-calculator'
             os.environ
-            os.startfile(calcPath)
+            os.popen(calcPath)
+
+        elif 'write a note' in query:
+            speak("What should I write, Sir?")
+            notes = TakeCommand()
+            filename = 'notes.txt'
+            mode = 'a+' if os.path.exists(filename) else 'w'
+            file = open(filename, mode)
+            speak("Sir should I include Data and Time?")
+            ans = TakeCommand()
+            if 'yes' in ans or 'sure' in ans:
+                strTime = datetime.datetime.now().strftime("%H:%M:%S")
+                file.write(strTime)
+                file.write(':-')
+            file.write(notes+'\n')
+
+            speak('Done taking notes, Sir!')
+
+        elif 'show notes' in query:
+            speak('Showing notes')
+            file = open('notes.txt', 'r')
+            notes = file.read()
+            print(notes)
+            speak(notes)
+
+        elif 'take screenshot' in query:
+            speak("Taking screenshot, Sir!")
+            screenshot()
+
